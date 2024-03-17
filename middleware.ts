@@ -9,12 +9,12 @@ export const config = {
 const cookieName = "lang";
 
 export function middleware(req: any) {
-  let lng: Locale = Languages.defaultLocale;
+  let lang: Locale = Languages.defaultLocale;
   if (req.cookies.has(cookieName)) {
     const hasLang = Languages.locales.some(
       (item) => item === req.cookies.get(cookieName)
     );
-    lng = hasLang ? req.cookies.get(cookieName) : Languages.defaultLocale;
+    lang = hasLang ? req.cookies.get(cookieName) : Languages.defaultLocale;
   }
 
   if (
@@ -26,7 +26,7 @@ export function middleware(req: any) {
     !req.nextUrl.pathname.startsWith("/images/")
   ) {
     return NextResponse.redirect(
-      new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
+      new URL(`/${lang}${req.nextUrl.pathname}`, req.url)
     );
   }
 
